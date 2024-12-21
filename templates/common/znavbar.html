@@ -1,0 +1,68 @@
+{% load static %} 
+ <!-- Navigation Area ===================================== -->
+
+<!-- <nav class="navbar navbar-pasific navbar-mp megamenu navbar-fixed-top" style="border-bottom:1px solid #fff;"> -->
+<nav class="navbar navbar-pasific navbar-mp navbar-standart megamenu navbar-fixed-top" style="border-bottom:1px solid #fff;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+				<i class="fa fa-bars"></i>
+			</button>
+			<a class="navbar-brand page-scroll" href="#">
+				
+				ZahanaraMunsur Paribar
+			</a>
+		</div>
+		<div class="navbar-collapse collapse navbar-main-collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown megamenu-fw has-dropdown-menu"><a href="{% url 'zhome' %}">Home </a>
+				</li>
+				
+				<li class="dropdown megamenu-fw"><a href="{% url 'donors' %}">Donors </a>
+				</li>
+				<li class="dropdown megamenu-fw"><a href="#">Recepients </a>
+				</li>
+				
+				<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Zakat Year  </a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="shortcode-animations.html"><i class="fa fa-plus-square"></i>2024</a></li>
+						<li><a href="{% url 'zyear23' %}"><i class="fa fa-plus-square"></i>2023</a></li>
+					</ul>
+				</li>
+				<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Blog </a>
+				</li>
+				<li><a href="#" data-toggle="modal" data-target="#searchModal"><i class="fa fa-search fa-fw color-pasific"></i></a></li>
+				
+			</ul>
+		
+		</div>
+	</div>
+</nav>
+
+<!-- Login Modal Dialog Box
+===================================== -->
+
+<!-- Search Modal Dialog Box
+===================================== -->
+<div id="searchModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- modal content start -->
+		<div class="modal-content">
+			<div class="modal-header bg-gray">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h5 class="modal-title text-center"><i class="fa fa-search fa-fw"></i> Search here</h5>
+			</div>
+			<div class="modal-body">                        
+				<form action="#" class="inline-form">
+					<input type="text" class="modal-search-input" autofocus>
+				</form>
+			</div>
+			<div class="modal-footer bg-gray">
+				<span class="text-center"><a href="#" class="color-dark">Advanced Search</a></span>
+			</div>
+		</div>
+		<!-- modal content end -->
+
+	</div>
+</div>

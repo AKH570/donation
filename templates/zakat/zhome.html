@@ -1,0 +1,439 @@
+{% include 'common/zbase.html' %}
+{% load static %} 
+<body  id="page-top" data-spy="scroll" data-target=".navbar" data-offset="100">
+        
+        <!-- Page Loader
+        ===================================== -->
+		<!-- <div id="pageloader" class="bg-grad-animation-1">
+			<div class="loader-item">
+                <img src="{% static 'assets/img/other/oval.svg' %}" alt="page loader">
+            </div>
+		</div> -->
+        
+        <a href="#page-top" class="go-to-top">
+            <i class="fa fa-long-arrow-up"></i>
+        </a>
+        
+        
+        <!-- Navigation Area(fixed navbar) 
+        ===================================== -->
+        <!-- <nav class="navbar navbar-pasific navbar-mp megamenu navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="#page-top">
+                        
+                        ZahanaraMunsur Paribar
+                    </a>
+                </div>
+        
+                <div class="navbar-collapse collapse navbar-main-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown megamenu-fw has-dropdown-menu"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Home </a>
+                        </li>
+                        
+                        <li class="dropdown megamenu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Contributors </a>
+                        </li>
+                        <li class="dropdown megamenu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Recepients </a>
+                        </li>
+                        
+                        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Zakat Year  </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="shortcode-animations.html"><i class="fa fa-plus-square"></i>2024</a></li>
+                                <li><a href="shortcode-accordians.html"><i class="fa fa-plus-square"></i>2023</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Blog </a>
+                        </li>
+                        <li><a href="#" data-toggle="modal" data-target="#searchModal"><i class="fa fa-search fa-fw color-pasific"></i></a></li>
+                        
+                    </ul>
+                
+                </div>
+            </div>
+        </nav> -->
+       
+        {% include 'common/znavbar.html' %}
+        <!-- Login Modal Dialog Box
+        ===================================== -->
+        <div id="loginModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- modal content start -->
+                <div class="modal-content">
+                    <div class="modal-header bg-gray">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title text-center"><i class="fa fa-lock fa-fw"></i> Sign In</h5>
+                    </div>
+                    <div class="modal-body pt25">
+                        <div class="text-center">
+                            <span class="color-dark">Sign in with your social account</span><br>
+                            <a href="#">
+                                <img src="{% static 'assets/img/other/fbconnect.png' %}" alt="" class="mt10 mb10">
+                            </a>
+                            <a href="#">
+                                <img src="{% static 'assets/img/other/twconnect.png' %}" alt="" class="mt10 mb10"><br><br>
+                            </a>
+                            <span class="color-dark">- Or sign in with your email address -</span>
+                        </div>
+                        
+                        <form class="form-horizontal mt25 ml50">
+                          <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-8">
+                              <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-8">
+                              <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-8">
+                              <button type="submit" class="button button-pasific button-block">Sign in</button>
+                                
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-gray">
+                        <span class="text-center">Don't have an account? <a href="#" class="color-dark">Register Now</a></span>
+                    </div>
+                </div>
+                <!-- modal content end -->
+
+            </div>
+        </div>
+        
+        
+        <!-- Search Modal Dialog Box
+        ===================================== -->
+        <div id="searchModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- modal content start -->
+                <div class="modal-content">
+                    <div class="modal-header bg-gray">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title text-center"><i class="fa fa-search fa-fw"></i> Search here</h5>
+                    </div>
+                    <div class="modal-body">                        
+                        <form action="#" class="inline-form">
+                            <input type="text" class="modal-search-input" autofocus>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-gray">
+                        <span class="text-center"><a href="#" class="color-dark">Advanced Search</a></span>
+                    </div>
+                </div>
+                <!-- modal content end -->
+
+            </div>
+        </div>
+        
+        
+        <!-- Canvas Area
+        ===================================== -->       
+        <header class="intro" style="background:url(static/assets/img/bg/canvas_1.png) 50% 50% no-repeat;background-size:cover;">
+            <div id="particles-js1"></div>
+            <div class="intro-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h1 class="brand-heading-big2 text-capitalize font-pacifico mt-100 color-light animated" data-animation="fadeInUp" data-animation-delay="100">
+                                <span class="rotate">Pasific Winter Season, Modern Web Template, Responsive Ready</span>
+                            </h1>
+                            <p class="intro-text mt25 color-gray animated" data-animation="fadeInUp" data-animation-delay="200">The simplest way to create website <br>and make your dream live.</p>
+                            <!-- <a class="button button-pasific button-lg hover-ripple-out animated" data-animation="fadeInUp" data-animation-delay="300">Purchase Now</a> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="intro-direction">
+                    <a href="#welcome">
+                        <div class="mouse-icon"><div class="wheel"></div></div>
+                    </a>
+                </div>
+                
+            </div>
+        </header>
+        
+        
+        <!-- Welcome Area
+        ===================================== -->
+        <div id="welcome" class="pt75 bg-black">
+            <div class="container">
+                <div class="row">                    
+                    <!-- title start -->
+                    <div class="col-md-12 text-center">
+                        <h1 class="font-size-normal color-light">
+                            <small class="color-pasific alpha10">Welcome to Pasific</small>
+                            We Are Smart Creative Agency
+                            <small class="heading heading-solid center-block"></small>
+                        </h1>
+                    </div>
+                    <!-- title end -->
+                    
+                    <!-- title description start -->
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <p class="color-light alpha6">
+                            <span class="lead color-light"><strong>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam 
+                            eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</strong></span><br><br>
+
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+                            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+                        </p>
+                    </div>
+                    <!-- title description end -->
+                </div>
+                
+                <div class="row mt50">
+                    
+                    <!-- item one start -->
+                    <div class="col-md-3 col-sm-6 col-xs-12 animated" data-animation="fadeInLeft" data-animation-delay="100">
+                        <div class="content-box content-box-center">                        
+                            <img src="{% static 'assets/img/flat-icon/briefcase.svg' %}" alt="svg icon" class="img-responsive icon-svg">
+                            <h4 class="color-light">Clean Code</h4>
+                            <p class="color-light alpha6">Pellentesque ipsum erat facilisis ut venenatis eu sodales vel dolor.</p>
+                      
+                        </div>
+                    </div>
+                    <!-- item one end -->
+                    
+                    <!-- item two start -->
+                    <div class="col-md-3 col-sm-6 col-xs-12 animated" data-animation="fadeInLeft" data-animation-delay="100">
+                        <div class="content-box content-box-center">                        
+                            <img src="{% static 'assets/img/flat-icon/close_up_mode.svg' %}" alt="svg icon" class="img-responsive icon-svg">
+                            <h4 class="color-light">Awesome Icons</h4>
+                            <p class="color-light alpha6">Pellentesque ipsum erat facilisis ut venenatis eu sodales vel dolor.</p>
+                      
+                        </div>
+                    </div>
+                    <!-- item two end -->
+                    
+                    <!-- item three start -->
+                    <div class="col-md-3 col-sm-6 col-xs-12 animated" data-animation="fadeInRight" data-animation-delay="100">
+                        <div class="content-box content-box-center">                        
+                            <img src="{% static 'assets/img/flat-icon/engineering.svg' %}" alt="svg icon" class="img-responsive icon-svg">
+                            <h4 class="color-light">Easy to Customize</h4>
+                            <p class="color-light alpha6">Pellentesque ipsum erat facilisis ut venenatis eu sodales vel dolor.</p>
+                      
+                        </div>
+                    </div>
+                    <!-- item three end -->
+                    
+                    <!-- item four start -->
+                    <div class="col-md-3 col-sm-6 col-xs-12 animated" data-animation="fadeInRight" data-animation-delay="100">
+                        <div class="content-box content-box-center">                        
+                            <img src="{% static 'assets/img/flat-icon/assistant.svg' %}" alt="svg icon" class="img-responsive icon-svg">
+                            <h4 class="color-light">Ready Support</h4>
+                            <p class="color-light alpha6">Pellentesque ipsum erat facilisis ut venenatis eu sodales vel dolor.</p>
+                      
+                        </div>
+                    </div>
+                    <!-- item four start -->                    
+                    
+                </div>                
+            </div>
+        </div>
+        
+        
+        <!-- Portfolio Area
+        ===================================== -->
+  
+        <!-- section portfolio end -->
+        
+        
+        <!-- Service Area
+        ===================================== -->
+       <!-- section service end -->
+        
+        
+        <!-- Info Area
+        ===================================== -->
+        
+        
+        
+        <!-- Team Area
+        ===================================== -->
+        <div id="team" class="bg-dark3 pt75">
+            <div class="container">
+                
+                <!-- title and short description start -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1 class="font-size-normal color-light">
+                            <small class="color-pasific alpha10">Amazing Team</small>
+                            We have a lot of Smart People
+                            <small class="heading heading-solid center-block"></small>
+                        </h1>
+                    </div>
+
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <p class="color-light alpha6">
+                            <span class="lead color-light"><strong>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam 
+                            eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</strong></span>
+                        </p>
+                    </div>
+                </div>
+                <!-- title and short description end -->
+                
+            </div>
+            
+            <div class="container-fluid">            
+                <div class="row">
+                    
+                    <!-- team member one start -->
+                    <div class="col-md-2 col-md-offset-1 col-sm-4 col-xs-12 hover-wobble-vertical mt30">                    
+                        <div class="team team-four bg-pasific">
+                            <h5>Harry Doe<small class="color-light alpha7">App Designer</small></h5>                            
+                            <img src="assets/img/team/7-1.jpg" alt="" class="img-responsive">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>                    
+                    </div>
+                    <!-- team member one end -->
+                    
+                    <!-- team member two start -->
+                    <div class="col-md-2 col-sm-4 col-xs-12 hover-wobble-vertical mt30">                    
+                        <div class="team team-four bg-cyan">
+                            <h5>Harry Doe<small class="color-light alpha7">App Designer</small></h5>                            
+                            <img src="assets/img/team/8-1.jpg" alt="" class="img-responsive">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>                    
+                    </div>
+                    <!-- team member two end -->
+                    
+                    <!-- team member three start -->                    
+                    <div class="col-md-2 col-sm-4 col-xs-12 hover-wobble-vertical mt30">                    
+                        <div class="team team-four bg-green">
+                            <h5>Harry Doe<small class="color-light alpha7">App Designer</small></h5>                            
+                            <img src="assets/img/team/9-1.jpg" alt="" class="img-responsive">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>                    
+                    </div>
+                    <!-- team member three end -->
+                    
+                    <!-- team member four start -->                    
+                    <div class="col-md-2 col-sm-4 col-xs-12 hover-wobble-vertical mt30">                    
+                        <div class="team team-four bg-blue">
+                            <h5>Harry Doe<small class="color-light alpha7">App Designer</small></h5>                            
+                            <img src="assets/img/team/10-1.jpg" alt="" class="img-responsive">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>                    
+                    </div>
+                    <!-- team member four end -->
+                    
+                    <!-- team member five start -->                    
+                    <div class="col-md-2 col-sm-4 col-xs-12 hover-wobble-vertical mt30">                    
+                        <div class="team team-four bg-purple">
+                            <h5>Harry Doe<small class="color-light alpha7">App Designer</small></h5>                            
+                            <img src="assets/img/team/11-1.jpg" alt="" class="img-responsive">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>                    
+                    </div>
+                    <!-- team member five end -->
+                    
+                </div><!-- row end -->                
+            </div><!-- container end -->            
+        </div><!-- section team end -->
+        
+        
+        <!-- Skill Area
+        ===================================== -->
+  
+        <!-- section skill end -->
+        
+        
+        <!-- Fun Fact Area
+        ===================================== -->
+
+        <!-- section fun fact end -->
+        
+        
+        <!-- Features Area
+        ===================================== -->
+        <!-- section feature end -->
+        
+        
+        <!-- SVG Cart Area
+        ===================================== -->
+
+        <!-- svg container end -->
+        
+        
+        <!-- Achievement Area
+        ===================================== -->
+
+        <!-- section achievment end -->
+        
+        
+        <!-- Info Area
+        ===================================== -->
+ 
+        
+        
+        <!-- General Content Area
+        ===================================== -->
+
+        <!-- General Content Area
+        ===================================== -->
+
+        <!-- section general info end -->
+        
+        
+        <!-- Price Area
+        ===================================== -->
+        <!-- section price end -->
+           
+        
+        <!-- Blog Area
+        ===================================== -->
+            <!-- section blog end -->
+        
+        
+        <!-- Newsletter Area
+        =====================================-->
+        
+        
+        
+        <!-- footer Area
+        ===================================== -->
+        {% include 'common/zfooter.html' %}
+        <!-- footer end -->
+</body>
+<!-- mp-index-particle-1.html#welcome -->
+

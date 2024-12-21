@@ -1,0 +1,411 @@
+{% include 'common/zbase.html' %}
+{% load static %}  
+<!-- shop-list-view-left-sb -->
+<body  id="topPage" data-spy="scroll" data-target=".navbar" data-offset="100">
+	<a href="#page-top" class="go-to-top">
+		<i class="fa fa-long-arrow-up"></i>
+	</a>
+	
+	<!-- Navigation Area
+	===================================== -->
+
+	{% include 'common/znavbar.html' %}
+	
+	<!-- Search Modal Dialog Box
+	===================================== -->
+
+	
+	<!-- Subheader Area
+	===================================== -->
+	<header class="bg-grad-day-tripper mt70">
+
+		<div class="container">
+			<div class="row mt20 mb30">
+				<div class="col-md-6 text-left">
+					<h3 class="color-light text-uppercase">Donors<small class="color-light alpha7">Best products</small></h3>
+				</div>
+				<div class="col-md-6 text-right pt25">
+					<a class="button button-md button-green hover-ripple-out pull-right">Free Shipping</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	
+	<!-- Shop Area
+	===================================== -->
+	<div id="shop" class="bg-light pt25">
+		<div class="container">
+			
+			<div class="row">                    
+				
+				<div class="col-md-9 col-md-push-3">
+				 
+					<div class="row mt25 mb25 animated" data-animation="fadeInDown" data-animation-delay="100">                            
+						<div class="col-md-9 col-sm-2 col-xs-2 pull-left">
+							<!-- <ul class="list-inline">
+								<li><a href="#" class="shop-layout pull-left"><i class="fa fa-th"></i></a></li>
+								<li><a href="#" class="shop-layout pull-left"><i class="fa fa-align-justify"></i></a></li>
+							</ul> -->
+							{% include 'common/alert.html' %}
+						</div>                            
+						<!-- <div class="col-md-7 col-sm-10 col-xs-10 pull-right">
+							<form class="form-inline pull-left">
+									<label>Short By:</label>
+									<select class="form-control" id="sel1">
+										<option>Name A - Z</option>
+										<option>Name Z - A</option>
+										<option>Model A - Z</option>
+										<option>Model Z - A</option>
+										<option>Highest Price</option>
+										<option>Lowest Price</option>
+										<option>Highest Rating</option>
+										<option>Lowest Rating</option>
+									</select>
+								</form>       
+							<form class="form-inline pull-left ml25">
+								<label>Show:</label>
+								<select class="form-control" id="sel2">
+									<option>10</option>
+									<option>20</option>
+									<option>30</option>
+									<option>40</option>
+									<option>50</option>
+									<option>60</option>
+									<option>70</option>
+									<option>80</option>
+									<option>90</option>
+									<option>100</option>
+								</select>
+								<label>Items Per Page</label>
+							</form>
+						</div>                             -->
+					</div>                      
+					
+					<!-- Item 1
+					======================== -->
+					{% if dname %}
+						{% for d in donors_info %}
+					<div class="row bt-solid-1 bb-dashed-1 pb25">
+						<!-- Item Image
+						======================== -->
+						<!-- <div class="col-md-2 col-sm-4 col-xs-12">
+							<div class="shop-item-container-in">
+								<img src="{% static 'assets/img/shop/img-shop-thumb-4.png' %}" alt="shop item" class="img-responsive center-block shop-item-img-list-view">
+							</div>
+						</div> -->
+
+						<!-- Item Summary
+						======================== -->
+						
+						<div class="col-md-10 col-sm-4 col-xs-12">
+							<h3>{{d.name}}</h3>
+							<div class="row">
+								<div class="col-md-12">
+									<!-- <h4 class="text-center mb30">Colored Table</h4> -->
+									<table class="table table-colored">
+										<thead>
+											<tr>
+											<th class="bg-primary text-center">Date</th>
+											<th class="bg-success text-center">Amount</th>
+											<th class="bg-info text-center">Reasons</th>
+											<th class="bg-warning text-center">Donation</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for inf in donate_info %}
+												{% if inf.d_name.name in d.name %}
+											<tr>
+											<td>{{inf.record_date}}</td>
+											<td>{{inf.donate_amt}}</td>
+											<td>{{inf.message}}</td>
+											<td>{{inf.get_donation_type_display}}</td>
+											<td><a href="{% url 'update_donation' inf.id %}"><i class="fa fa-fw">&#xf044</i></a></td>
+											</tr>
+												{% endif %}
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- Item Price
+                            ======================== -->
+						<div class="col-md-2 col-sm-4 col-xs-12 text-center">
+							<div class="shop-item-detail-price">
+								<ins><span class="amount">Tk {{d.donors_subtotal}}</span></ins><br>
+							</div>
+							<!-- <i class="fa fa-shopping-basket"></i> -->
+							<a href="{% url 'donate' d.id %}" class="button button-md button-pasific hover-icon-wobble-horizontal mt25"><img class="flaticon" alt="flat icon" src="{% static 'assets/img/flat-icon/donate.svg' %}" width="20" height="30" title="donate.svg"/>Donate</a>
+						</div>
+					</div>
+					{% endfor %}
+					{% else %}
+					<div class="col-md-9 col-sm-4 col-xs-12">
+						<h3>Donor is not added</h3>
+					</div>
+					{% endif %}
+				</div>
+				
+						
+				<!-- Sidebar
+				===================================== -->
+				<div id="sidebar" class="col-md-3 col-md-pull-9 mt25 animated" data-animation="fadeInLeft" data-animation-delay="250">           
+					
+					<!-- Search
+					===================================== -->
+					<!-- <div class="mt75 pr25 pl25 clearfix">
+						<form>
+						  <div class="form-group">
+							<label class="sr-only">Email address</label>
+							<input type="text" class="form-control" id="searchshop" placeholder="Search">
+						  </div>
+						  <button type="submit" class="button button-sm button-block button-dark mt-10">Search</button>
+						</form>
+					</div> -->
+					
+					<!-- Sidebar Cart
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Donation Information 
+							<!-- <i class="fa fa-shopping-basket fa-fw fa-1x"></i> -->
+							<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">Information<i class="fa fa-fw">&#xf19c</i></a>	 	
+							<span class="heading-divider mt10"></span>
+						</h5>
+						<div class="shop-sidebar-cart">
+							<div class="sidebar-cart-container">
+								<!-- <img src="{% static 'assets/img/shop/img-shop-thumb-1.png' %}" alt="" class="img-responsive pull-left"> -->
+								<h6><a href="#">Total Donate Amount</a></h6>
+								<span class="sidebar-cart-price text-gray">Tk {{total_donate_amount}}</span>
+								<!-- <span class="sidebar-cart-remove"><a href="#"><i class="fa fa-times-circle fa-fw"></i>Remove</a></span> -->
+							</div>
+							<div class="sidebar-cart-container">
+								<!-- <img src="{% static 'assets/img/shop/img-shop-thumb-2.png' %}" alt="" class="img-responsive pull-left"> -->
+								<h6><a href="#">Proposed Zakat Amount</a></h6>
+								<span class="sidebar-cart-price text-gray">Tk 75.00</span>
+								<!-- <span class="sidebar-cart-remove"><a href="#"><i class="fa fa-times-circle fa-fw"></i>Remove</a></span> -->
+							</div>
+							<div class="sidebar-cart-container">
+								<!-- <img src="assets/img/shop/img-shop-thumb-3.png" alt="" class="img-responsive pull-left"> -->
+								<h6><a href="#">Remaining Amount</a></h6>
+								<span class="sidebar-cart-price text-gray">Tk 59.00</span>
+								<!-- <span class="sidebar-cart-remove"><a href="#"><i class="fa fa-times-circle fa-fw"></i>Remove</a></span> -->
+							</div>
+						</div>
+						<h5><span class="text-gray">Total Cart:</span> <span class="text-pasific">$224.00</span></h5>
+						<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">View Cart<i class="fa fa-shopping-basket fa-fw fa-1x"></i></a>
+					</div>
+					
+					
+					<!-- Categories
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Categories
+							<span class="heading-divider mt10"></span>
+						</h5>                            
+						<ul class="shop-sidebar pl25">
+							<li class="active"><a href="#">Fashion<span class="badge badge-pasific pull-right">14</span></a></li>
+							<li><a href="#">Sport<span class="badge badge-pasific pull-right">125</span></a></li>
+							<li><a href="#">Electronic<span class="badge badge-pasific pull-right">350</span></a></li>
+							<li><a href="#">Jewellery<span class="badge badge-pasific pull-right">520</span></a></li>
+							<li><a href="#">Food<span class="badge badge-pasific pull-right">1,290</span></a></li>
+							<li><a href="#">Furniture<span class="badge badge-pasific pull-right">7</span></a></li>
+						</ul>
+					   
+					</div>
+					
+					
+					<!-- Filter by Price
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Filter by Price
+							<span class="heading-divider mt10"></span>
+						</h5>             
+						<input type="text" id="shop-range-price" name="shop-range-price" value="" />
+						<button type="submit" class="button button-block button-sm button-pasific mt10 hover-ripple-out">Filter Now</button>
+					</div>
+					
+					
+					<!-- Tags
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Popular Tags
+							<span class="heading-divider mt10"></span>
+						</h5>
+						<ul class="tag">
+							<li><a href="#">Jacket</a></li>
+							<li><a href="#">Accesories</a></li>
+							<li><a href="#">Jewelley</a></li>
+							<li><a href="#">iWatch</a></li>
+							<li><a href="#">iPad</a></li>
+							<li><a href="#">Macbook</a></li>
+							<li><a href="#">Apple</a></li>
+						</ul>
+					   
+					</div>
+					
+					
+					<!-- Shop by Color
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Shop By Color
+							<span class="heading-divider mt10"></span>
+						</h5>                            
+						<a href="#" class="shop-by-color bg-orange" data-toggle="tooltip" title="Orange" data-placement="bottom">&nbsp;</a>
+						<a href="#" class="shop-by-color bg-blue" data-toggle="tooltip" title="Blue" data-placement="bottom">&nbsp;</a>
+						<a href="#" class="shop-by-color bg-cyan" data-toggle="tooltip" title="Cyan" data-placement="bottom">&nbsp;</a>
+						<a href="#" class="shop-by-color bg-purple" data-toggle="tooltip" title="Purple" data-placement="bottom">&nbsp;</a>
+						<a href="#" class="shop-by-color bg-red" data-toggle="tooltip" title="Red" data-placement="bottom">&nbsp;</a>
+						<a href="#" class="shop-by-color bg-yellow" data-toggle="tooltip" title="Yellow" data-placement="bottom">&nbsp;</a>
+						<a href="#" class="shop-by-color bg-dark" data-toggle="tooltip" title="Black" data-placement="bottom">&nbsp;</a>
+					</div>
+					
+					
+					<!-- Shop by Brand
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Shop By Brand
+							<span class="heading-divider mt10"></span>
+						</h5>                            
+						<div class="shop-sidebar-checkbox">
+							<input id="check1" type="checkbox" name="check" value="check1">
+							<label for="check1">Victoria's Secret</label>
+							<br>
+							<input id="check2" type="checkbox" name="check" value="check2">
+							<label for="check2">Dolce &amp; Gabbana</label>
+							<br>
+							<input id="check3" type="checkbox" name="check" value="check3">
+							<label for="check3">Tiffany &amp; Co</label>
+							<br>
+							<input id="check4" type="checkbox" name="check" value="check4">
+							<label for="check4">Gucci</label>
+							<br>
+							<input id="check5" type="checkbox" name="check" value="check5">
+							<label for="check5">Armani</label>
+							<br>
+							<input id="check6" type="checkbox" name="check" value="check6">
+							<label for="check6">Chanel</label>
+							<br>
+							<input id="check7" type="checkbox" name="check" value="check7">
+							<label for="check7">Louis Vuitton</label>
+						</div>
+					</div>
+					
+					
+					<!-- Popular Products
+					===================================== -->
+					<div class="pr25 pl25 clearfix">
+						<h5 class="mt25">
+							Popular Products
+							<span class="heading-divider mt10"></span>
+						</h5>
+						<div class="shop-sidebar-cart">
+							<div class="sidebar-cart-container">
+								<img src="assets/img/shop/img-shop-thumb-1.png" alt="" class="img-responsive pull-left">
+								<h6>Man Casual Jacket</h6>
+								<span class="sidebar-cart-price text-gray">$90.00</span>
+								<span class="sidebar-cart-remove">
+									<a href="#">
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star-half-o text-orange"></i>
+									</a>
+								</span>
+							</div>
+							
+							<div class="sidebar-cart-container">
+								<img src="assets/img/shop/img-shop-thumb-2.png" alt="" class="img-responsive pull-left">
+								<h6>Man Casual Jacket</h6>
+								<span class="sidebar-cart-price text-gray">$90.00</span>
+								<span class="sidebar-cart-remove">
+									<a href="#">
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star-half-o text-orange"></i>
+									</a>
+								</span>
+							</div>
+							
+							<div class="sidebar-cart-container">
+								<img src="assets/img/shop/img-shop-thumb-3.png" alt="" class="img-responsive pull-left">
+								<h6>Man Casual Jacket</h6>
+								<span class="sidebar-cart-price text-gray">$90.00</span>
+								<span class="sidebar-cart-remove">
+									<a href="#">
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star text-orange"></i>
+										<i class="fa fa-star-half-o text-orange"></i>
+									</a>
+								</span>
+							</div>
+							
+						</div>
+					</div>                            
+					
+				</div><!-- sidebar end -->
+						 
+			</div><!-- row end -->
+		</div><!-- container end -->
+	</div><!-- shop section end -->
+			
+	
+	<!-- Shopping Method
+	===================================== -->
+	<div id="shop-info" class="bg-grad-stellar">
+		<div class="container">                
+			<div class="row pt50 pb30">
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="content-box content-box-center">                        
+						<span class="icon-bike color-light"></span>
+						<h5 class="color-light">Free Shpping</h5>               
+						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
+				  
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="content-box content-box-center">                        
+						<span class="icon-linegraph color-light"></span>
+						<h5 class="color-light">Online Tracking</h5>               
+						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
+				  
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="content-box content-box-center">                        
+						<span class="icon-speedometer color-light"></span>
+						<h5 class="color-light">Fast Delivery</h5>               
+						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
+				  
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="content-box content-box-center">                        
+						<span class="icon-refresh color-light"></span>
+						<h5 class="color-light">Moneyback Guaranteed</h5>               
+						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
+				  
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	{% include 'common/zfooter.html' %}
+</body>
