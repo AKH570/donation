@@ -20,9 +20,12 @@
 				
 				<li class="dropdown megamenu-fw"><a href="{% url 'donors' %}">Donors </a>
 				</li>
-				<li class="dropdown megamenu-fw"><a href="#">Recepients </a>
+				<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Recipients</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{% url 'add_zrecipient' %}"><i class="fa fa-plus-square"></i>Add Recipients</a></li>
+						<li><a href="{% url 'zyear23' %}"><i class="fa fa-plus-square"></i>Recipients List</a></li>
+					</ul>
 				</li>
-				
 				<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle color-light">Zakat Year  </a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="shortcode-animations.html"><i class="fa fa-plus-square"></i>2024</a></li>

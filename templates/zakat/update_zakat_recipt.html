@@ -1,0 +1,110 @@
+{% include 'common/zbase.html' %}
+{% load static %}  
+<!-- shop-list-view-left-sb -->
+<body  id="topPage" data-spy="scroll" data-target=".navbar" data-offset="100">
+	<a href="#page-top" class="go-to-top">
+		<i class="fa fa-long-arrow-up"></i>
+	</a>
+	
+	<!-- Navigation Area
+	===================================== -->
+
+	{% include 'common/znavbar.html' %}
+	
+	<!-- Search Modal Dialog Box
+	===================================== -->
+
+	
+	<!-- Subheader Area
+	===================================== -->
+	<header class="bg-grad-day-tripper mt70">
+
+		<div class="container">
+			<div class="row mt20 mb30">
+				<div class="col-md-6 text-left">
+					<h3 class="color-light text-uppercase">Update Zakat Recipients<small class="color-light alpha7">Best products</small></h3>
+				</div>
+				<div class="col-md-6 text-right pt25">
+					<a class="button button-md button-green hover-ripple-out pull-right">Free Shipping</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- add form -->
+	<section id="shortcodeForm">
+		<div class="container-fluid pt40 pb40 bb-dashed-1">
+			<div class="row">
+				<div class="container">
+					<div class="row">
+						{% include 'common/alert.html' %}
+						<h4 class="text-center mb20">Add Zakat Recipients</h4>
+						<form method="POST" action="#">
+							{% csrf_token %}
+							<div class="col-md6 col-sm-6 col-xs-12">
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">Recipient's Name</label>
+								  {{zakat_form.recipients_name}}
+								</div>
+							</div>
+							<div class="col-md6 col-sm-6 col-xs-12">
+								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">Recipient's Address</label>
+								  {{zakat_form.recipients_address}}
+								</div>
+								
+							</div>
+							<div class="col-md6 col-sm-6 col-xs-12">
+								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">Recipient's Mobile</label>
+								  {{zakat_form.recipients_mobile}}
+								</div>
+								
+							</div>
+							<div class="col-md6 col-sm-6 col-xs-12">
+								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">References</label>
+								  {{zakat_form.remarks}}
+								</div>
+								
+							</div>
+							<div class="col-md6 col-sm-3 col-xs-12">
+								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">Zakat Amount</label>
+								  {{zakat_form.zakat_money}}
+								</div>
+								
+							</div>
+							<div class="col-md6 col-sm-3 col-xs-12">
+								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">Recipients Category</label>
+								  {{zakat_form.recipients_category}}
+								</div>
+								
+							</div>
+							<div class="col-md6 col-sm-3 col-xs-12">
+								<div class="form-group has-success">
+								  <label class="control-label" for="inputSuccess1">Zakat Date</label>
+								  {{zakat_form.zakat_date}}
+								</div>
+							</div>
+							<div class="col-md6 col-sm-3 col-xs-9">
+								<div class="form-group has-success">
+								<!-- <label class="control-label" for="inputSuccess1">Add</label> -->
+									<input type="submit" class="button button-md button-block button-grad-stellar"  value="Add">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>                   
+			</div>
+		</div>	
+	</section>
+	
+	<!-- Footer -->
+	{% include 'common/zfooter.html' %}
+</body>

@@ -13,17 +13,14 @@ class Donors(models.Model):
 	class Meta:
 		verbose_name_plural='DONORS'
 
-class DonationType(models.TextChoices):
+class DonationType(models.TextChoices): #choice fields
 	select_type = '','-- Select --' 
 	donation = 'donation','Donation'
 	zakat = 'zakat','Zakat'
 	others = 'other','Other_purpose'
 
 YEAR_CHOICES = [(r, r) for r in range(2023, datetime.datetime.now().year + 1)]
-# DONATION_TYPE = [
-# 	('D','DONATION'),
-# 	('Z','ZAKAT'),
-# 	('O','OTHER PURPOSE')]
+
 class DonateInfo(models.Model):
 	d_name = models.ForeignKey(Donors,on_delete=models.CASCADE,related_name='giver')
 	donate_amt = models.DecimalField(max_digits=10,decimal_places=2,default=0)
@@ -41,3 +38,32 @@ class DonateInfo(models.Model):
 		return self.d_name.name
 	class Meta:
 		verbose_name_plural='DONATE INFO'
+
+RECIPIENTS_CAT=(
+	('general','GENERAL'),
+	('special','SPECIAL'),
+	
+)
+class ZakatRecipients(models.Model): # NAME LIST
+	recipients_name = models.CharField(max_length=150,blank=True,null=False)
+	recipients_address = models.CharField(max_length=200,blank=True,null=True)
+	zakat_money = models.DecimalField(max_digits=8,decimal_places=2,default=0)
+	recipients_mobile = models.CharField(max_length=20,blank=True,null=True)
+	donor_name = models.ManyToManyField(Donors,related_name='zakat_donor',null=True,blank=True)
+	remarks = models.CharField(max_length=100,blank=True,null=True)
+	recipients_category =models.CharField(max_length=50,choices=RECIPIENTS_CAT,default='general')
+	zakat_year = models.IntegerField(_('year'),choices=YEAR_CHOICES,default=datetime.datetime.now().year)
+	zakat_date =models.DateTimeField(null=True,blank=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+	is_archived = models.BooleanField(default=False)
+
+	def __str__(self):
+		return self.recipients_name
+
+	class Meta:
+		verbose_name_plural='ZAKAT RECIPIENTS'
+
+	def donor_list(self):
+		return ', '.join([donor.name for donor in self.donor_name.all()])
+		donor_list.short_description = 'Donors'
