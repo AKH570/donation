@@ -3937,9 +3937,9 @@ ul.pagination.pagination-pasific li.active a {
 /* sidebar */
 #sidebar h5 {
     border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     margin-bottom: 20px;
-    font-size: 14px;
+    font-size: 18px;
     text-transform: uppercase;
 }
 #sidebar form label {

@@ -109,22 +109,39 @@ def AddZakatRecipients(request):
 
 	else:
 		zakat_form = ZakatRecipientsForm()
+
 	context={
-		'zakat_form':zakat_form
+		'zakat_form':zakat_form,
+		
 	}
 	return render(request,'zakat/add_zakat_recipients.html',context)
 
 # To show recipients list in template
-def ZakatRecipientsName(request):
-	try:
-		recipients_list = ZakatRecipients.objects.all().order_by('created_at')
-		print(f'recipints name:{recipients_list}')
-	except ZakatRecipients.DoesNotExist:
-		messages.error(request,'Recipients are not added')
-		return redirect('add_zrecipient')
+def ZakatRecipientsName(request,recipients_num = None):
+	recipients_list = ZakatRecipients.objects.all().order_by('created_at')
 
+	# count total recipients:
+	try:
+		recipients_num = ZakatRecipients.objects.exclude(recipients_name__isnull=True).count()
+	except ZakatRecipients.DoesNotExist:
+		messages.warning(request,'No recipients found')
+
+	# display total donation
+	donation = DonateInfo.objects.all()
+	total_donate_amount = 0
+	for i in donation:
+		total_donate_amount += i.donate_amt
+	
+	# display total proposed zakat amount
+	proposed_zakat_amount=0
+	for i in recipients_list:
+		proposed_zakat_amount += i.zakat_money
+	print(f'zakat money:{proposed_zakat_amount}')
 	context={
-		'recipients_list':recipients_list
+		'recipients_list':recipients_list,
+		'total_donate_amount':total_donate_amount,
+		'proposed_zakat_amount':proposed_zakat_amount,
+		'recipients_num':recipients_num
 	}
 	return render(request,'zakat/zakat_recipients.html',context)
 
@@ -145,6 +162,15 @@ def EditZakatRecipients(request,pk):
 		'zakat_form':zakat_form
 	}	
 	return render(request,'zakat/update_zakat_recipt.html',context)
+
+def RemoveZakatRecipients(request,pk):
+	try:
+		delete_zrecipient = ZakatRecipients.objects.get(pk=pk)
+		delete_zrecipient.delete()
+		return redirect('zakat_recipients')
+	except:
+		pass
+
 
 def Zyear23(request):
 	return render(request,'zakat/zakatyear2023.html')
