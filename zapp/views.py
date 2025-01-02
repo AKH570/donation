@@ -1,10 +1,14 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from zapp.models import Donors,DonateInfo,ZakatRecipients
 from zapp.forms import DonateInfoForm,DonorsNameForm,ZakatRecipientsForm
-from django.contrib import messages
+from django.contrib import messages,auth
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import login,authenticate
 
+
+	
 
 # Create your views here.
 def zhome(request):
@@ -13,21 +17,33 @@ def zhome(request):
 def Donor(request):
 	name = Donors.objects.all()
 	donate_info = DonateInfo.objects.all()
-
+	
 	''' donor individual total amount /row wise total'''
 	donors_info = Donors.objects.annotate(
         donors_subtotal=Sum('giver__donate_amt')
     )
 	
+	# count no of total recipients
+	try:
+		recipients_list = ZakatRecipients.objects.exclude(recipients_name__isnull=True)
+		recipients_num =recipients_list.count()
+	except ZakatRecipients.DoesNotExist:
+		messages.warning(request,'No recipients found')
+
 	total_donate_amount = 0
 	for i in donate_info:
 		total_donate_amount += i.donate_amt
-
+	
+	proposed_zakat_amount=0
+	for i in recipients_list:
+		proposed_zakat_amount += i.zakat_money
 	context = {
 		'dname':name,
 		'donate_info':donate_info,
 		'donors_info':donors_info,
-		'total_donate_amount':total_donate_amount
+		'total_donate_amount':total_donate_amount,
+		'proposed_zakat_amount':proposed_zakat_amount,
+		'recipients_num':recipients_num
 	}
 	return render(request,'zakat/zdonors.html',context) # old:zcontributors.html
 
@@ -59,6 +75,7 @@ def Donation(request,pk):
 
 	return render(request,'zakat/donatemoney.html',context)
 
+# @admin_required
 def UpdateDonation(request,pk):
 	get_donation = get_object_or_404(DonateInfo,pk=pk)
 	try:
@@ -163,6 +180,7 @@ def EditZakatRecipients(request,pk):
 	}	
 	return render(request,'zakat/update_zakat_recipt.html',context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def RemoveZakatRecipients(request,pk):
 	try:
 		delete_zrecipient = ZakatRecipients.objects.get(pk=pk)

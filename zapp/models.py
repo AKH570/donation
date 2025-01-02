@@ -49,7 +49,7 @@ class ZakatRecipients(models.Model): # NAME LIST
 	recipients_address = models.CharField(max_length=200,blank=True,null=True)
 	zakat_money = models.DecimalField(max_digits=8,decimal_places=2,default=0)
 	recipients_mobile = models.CharField(max_length=20,blank=True,null=True)
-	donor_name = models.ManyToManyField(Donors,related_name='zakat_donor',null=True,blank=True)
+	donor_name = models.ManyToManyField(Donors,related_name='zakat_donor',blank=True)
 	remarks = models.CharField(max_length=100,blank=True,null=True)
 	recipients_category =models.CharField(max_length=50,choices=RECIPIENTS_CAT,default='general')
 	zakat_year = models.IntegerField(_('year'),choices=YEAR_CHOICES,default=datetime.datetime.now().year)

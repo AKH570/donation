@@ -1,0 +1,89 @@
+{% include 'common/zbase.html' %}
+{% load static %}  
+<!-- shop-list-view-left-sb -->
+<body  id="topPage" data-spy="scroll" data-target=".navbar" data-offset="100">
+	<a href="#page-top" class="go-to-top">
+		<i class="fa fa-long-arrow-up"></i>
+	</a>
+	
+	<!-- Navigation Area
+	===================================== -->
+
+	{% include 'common/znavbar.html' %}
+	
+	<!-- Search Modal Dialog Box
+	===================================== -->
+
+	
+	<!-- Subheader Area
+	===================================== -->
+	<header class="bg-grad-day-tripper mt70">
+
+		<div class="container">
+			<div class="row mt20 mb30">
+				<div class="col-md-6 text-left">
+					<h3 class="color-light text-uppercase">Sign Up Form<small class="color-light alpha7"></small></h3>
+				</div>
+				<div class="col-md-6 text-right pt25">
+					<a href="#" class="button button-md button-green hover-ripple-out pull-right">Back</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- add form -->
+	<section id="shortcodeForm">
+		<div class="container-fluid pt40 pb40 bb-dashed-1">
+			<div class="row">
+				<div class="container">
+					<div class="col-md-9 col-sm-6 col-xs-12 text-center mb30">
+						<div class="contact contact-us-one">
+							<div class="col-sm-12 col-xs-12 text-center mb20">
+								<h4 class="pb25 bb-solid-1 text-uppercase">
+									User Sign Up
+									<small class="text-lowercase">{% include 'common/alert.html' %}</small>
+								</h4>
+							</div>
+							<form name="contact" method="POST" action="">
+								{% csrf_token %}
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<!-- <input type="text" name="email" class="input-md input-rounded form-control" placeholder="Email" maxlength="100" required> -->
+										 {{signup_form.email}}
+									</div>                                               
+								</div>
+
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<!-- <input type="password" name="password" class="input-md input-rounded form-control" placeholder="password" maxlength="100" required> -->
+										{{signup_form.user_name}}
+									</div>                                               
+								</div>
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<!-- <input type="password" name="password" class="input-md input-rounded form-control" placeholder="confirm password" maxlength="100" required> -->
+										{{signup_form.password}}
+									</div>                                               
+								</div>
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<!-- <input type="password" name="password" class="input-md input-rounded form-control" placeholder="confirm password" maxlength="100" required> -->
+										{{signup_form.confirm_password}}
+									</div>                                               
+								</div>
+
+								<div class="col-sm-12 mt10 text-center mb20">
+									
+									<button type="submit" class="button-3d button-md button-block button-green hover-ripple-out" value="Log in">Save</button>
+								</div>
+							</form>
+							<div class="col-sm-12 text-center"><a href="{% url 'login' %}" class="color-dark">Login in</a></div>    
+						</div>
+					</div>
+				</div>                   
+			</div>
+		</div>	
+	</section>
+	
+	<!-- Footer -->
+	{% include 'common/zfooter.html' %}
+</body>

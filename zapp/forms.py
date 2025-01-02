@@ -1,5 +1,8 @@
 from django import forms
 from zapp.models import DonateInfo,Donors,DonationType,ZakatRecipients
+from django.contrib.auth.forms import AuthenticationForm
+
+
 
 class DonorsNameForm(forms.ModelForm):
 	name = forms.CharField(disabled=True,widget=forms.TextInput(attrs={'class':'input-md input-rounded form-control','maxlength':'100'}))
@@ -52,3 +55,19 @@ class ZakatRecipientsForm(forms.ModelForm):
 		'recipients_category',
 		'remarks',
 		'zakat_date']
+
+# class LoginForm(AuthenticationForm):
+#     username = forms.CharField(
+#         widget=forms.TextInput(attrs={
+# 		'class':'input-md input-rounded form-control',
+# 		'maxlength':'150','placeholder':'User Name'}),
+#         label='',
+#         max_length=150,
+#     )
+#     password = forms.CharField(
+#         widget=forms.PasswordInput(attrs={
+# 		'class':'input-md input-rounded form-control',
+# 		'maxlength':'150','placeholder':'Password'}),
+#         label='',
+#     )
+

@@ -22,7 +22,7 @@
 		<div class="container">
 			<div class="row mt20 mb30">
 				<div class="col-md-6 text-left">
-					<h3 class="color-light text-uppercase">Donors<small class="color-light alpha7">Best products</small></h3>
+					<h3 class="color-light text-uppercase">Donors<small class="color-light alpha7">zakat year: {% now 'Y' %}</small></h3>
 				</div>
 				<div class="col-md-6 text-right pt25">
 					<a href="{% url 'zakat_recipients' %}" class="button button-md button-green hover-ripple-out pull-right">Zakat Recipients</a>
@@ -146,216 +146,48 @@
 					</div>
 					{% endif %}
 				</div>
-				
-						
+				<br><br>
 				<!-- Sidebar
 				===================================== -->
 				<div id="sidebar" class="col-md-3 col-md-pull-9 mt25 animated" data-animation="fadeInLeft" data-animation-delay="250">           
-					
-					<!-- Search
-					===================================== -->
-					<!-- <div class="mt75 pr25 pl25 clearfix">
-						<form>
-						  <div class="form-group">
-							<label class="sr-only">Email address</label>
-							<input type="text" class="form-control" id="searchshop" placeholder="Search">
-						  </div>
-						  <button type="submit" class="button button-sm button-block button-dark mt-10">Search</button>
-						</form>
-					</div> -->
-					
 					<!-- Sidebar Cart
 					===================================== -->
 					<div class="pr25 pl25 clearfix">
 						<h5 class="mt25">
-							Donation Information 
-							<!-- <i class="fa fa-shopping-basket fa-fw fa-1x"></i> -->
-							<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">Information<i class="fa fa-fw">&#xf19c</i></a>	 	
+							<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">Donation<i class="fa fa-fw">&#xf19c</i></a>	 	
 							<span class="heading-divider mt10"></span>
+							<span class="text-pasific">Tk {{total_donate_amount}}</span>
 						</h5>
-						<div class="shop-sidebar-cart">
-							<div class="sidebar-cart-container">
-								<!-- <img src="{% static 'assets/img/shop/img-shop-thumb-1.png' %}" alt="" class="img-responsive pull-left"> -->
-								<h6><a href="#">Total Donate Amount</a></h6>
-								<span class="sidebar-cart-price text-gray">Tk {{total_donate_amount}}</span>
-								<!-- <span class="sidebar-cart-remove"><a href="#"><i class="fa fa-times-circle fa-fw"></i>Remove</a></span> -->
-							</div>
-							<div class="sidebar-cart-container">
-								<!-- <img src="{% static 'assets/img/shop/img-shop-thumb-2.png' %}" alt="" class="img-responsive pull-left"> -->
-								<h6><a href="#">Proposed Zakat Amount</a></h6>
-								<span class="sidebar-cart-price text-gray">Tk 75.00</span>
-								<!-- <span class="sidebar-cart-remove"><a href="#"><i class="fa fa-times-circle fa-fw"></i>Remove</a></span> -->
-							</div>
-							<div class="sidebar-cart-container">
-								<!-- <img src="assets/img/shop/img-shop-thumb-3.png" alt="" class="img-responsive pull-left"> -->
-								<h6><a href="#">Remaining Amount</a></h6>
-								<span class="sidebar-cart-price text-gray">Tk 59.00</span>
-								<!-- <span class="sidebar-cart-remove"><a href="#"><i class="fa fa-times-circle fa-fw"></i>Remove</a></span> -->
-							</div>
-						</div>
-						<h5><span class="text-gray">Total Cart:</span> <span class="text-pasific">$224.00</span></h5>
-						<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">View Cart<i class="fa fa-shopping-basket fa-fw fa-1x"></i></a>
+						<h5 class="mt25">
+							<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">Payable zakat:<i class="fa fa-fw">&#xf19c</i></a>	 	
+							<span class="heading-divider mt10"></span>
+							<span class="text-pasific">Tk {{proposed_zakat_amount}}</span>
+						</h5>
+						<h5 class="mt25">
+							<a class="button button-block button-pasific button-sm hover-ripple-out mt-30">Zakat Recipients:<i class="fa fa-fw">&#xf19c</i></a>	 	
+							<span class="heading-divider mt10"></span>
+							{% if recipients_num %}<span class="text-pasific">Total: {{recipients_num}}</span>{% else %} 
+							<p>{% include 'common/alert.html' %}</p>{% endif %}
+							<!-- <p>General:{{recipients_num}} </p>
+							<p>special:{{recipients_num}} </p> -->
+							<!-- <span class="text-pasific">General: {{recipients_num}}</span>
+							<span class="text-pasific">Special: {{recipients_num}}</span> -->
+						</h5>
+						
 					</div>
-					
-					
 					<!-- Categories
 					===================================== -->
 					<div class="pr25 pl25 clearfix">
-						<h5 class="mt25">
+						<!-- <h5 class="mt25">
 							Categories
 							<span class="heading-divider mt10"></span>
-						</h5>                            
-						<ul class="shop-sidebar pl25">
-							<li class="active"><a href="#">Fashion<span class="badge badge-pasific pull-right">14</span></a></li>
+						</h5>                             -->
+						<!-- <ul class="shop-sidebar pl25">
+							<li><a href="#">Donation Amount :<span class="badge badge-pasific pull-right">Tk {{total_donate_amount}}</span></a></li>
 							<li><a href="#">Sport<span class="badge badge-pasific pull-right">125</span></a></li>
-							<li><a href="#">Electronic<span class="badge badge-pasific pull-right">350</span></a></li>
-							<li><a href="#">Jewellery<span class="badge badge-pasific pull-right">520</span></a></li>
-							<li><a href="#">Food<span class="badge badge-pasific pull-right">1,290</span></a></li>
-							<li><a href="#">Furniture<span class="badge badge-pasific pull-right">7</span></a></li>
-						</ul>
-					   
-					</div>
-					
-					
-					<!-- Filter by Price
-					===================================== -->
-					<div class="pr25 pl25 clearfix">
-						<h5 class="mt25">
-							Filter by Price
-							<span class="heading-divider mt10"></span>
-						</h5>             
-						<input type="text" id="shop-range-price" name="shop-range-price" value="" />
-						<button type="submit" class="button button-block button-sm button-pasific mt10 hover-ripple-out">Filter Now</button>
-					</div>
-					
-					
-					<!-- Tags
-					===================================== -->
-					<div class="pr25 pl25 clearfix">
-						<h5 class="mt25">
-							Popular Tags
-							<span class="heading-divider mt10"></span>
-						</h5>
-						<ul class="tag">
-							<li><a href="#">Jacket</a></li>
-							<li><a href="#">Accesories</a></li>
-							<li><a href="#">Jewelley</a></li>
-							<li><a href="#">iWatch</a></li>
-							<li><a href="#">iPad</a></li>
-							<li><a href="#">Macbook</a></li>
-							<li><a href="#">Apple</a></li>
-						</ul>
-					   
-					</div>
-					
-					
-					<!-- Shop by Color
-					===================================== -->
-					<div class="pr25 pl25 clearfix">
-						<h5 class="mt25">
-							Shop By Color
-							<span class="heading-divider mt10"></span>
-						</h5>                            
-						<a href="#" class="shop-by-color bg-orange" data-toggle="tooltip" title="Orange" data-placement="bottom">&nbsp;</a>
-						<a href="#" class="shop-by-color bg-blue" data-toggle="tooltip" title="Blue" data-placement="bottom">&nbsp;</a>
-						<a href="#" class="shop-by-color bg-cyan" data-toggle="tooltip" title="Cyan" data-placement="bottom">&nbsp;</a>
-						<a href="#" class="shop-by-color bg-purple" data-toggle="tooltip" title="Purple" data-placement="bottom">&nbsp;</a>
-						<a href="#" class="shop-by-color bg-red" data-toggle="tooltip" title="Red" data-placement="bottom">&nbsp;</a>
-						<a href="#" class="shop-by-color bg-yellow" data-toggle="tooltip" title="Yellow" data-placement="bottom">&nbsp;</a>
-						<a href="#" class="shop-by-color bg-dark" data-toggle="tooltip" title="Black" data-placement="bottom">&nbsp;</a>
-					</div>
-					
-					
-					<!-- Shop by Brand
-					===================================== -->
-					<div class="pr25 pl25 clearfix">
-						<h5 class="mt25">
-							Shop By Brand
-							<span class="heading-divider mt10"></span>
-						</h5>                            
-						<div class="shop-sidebar-checkbox">
-							<input id="check1" type="checkbox" name="check" value="check1">
-							<label for="check1">Victoria's Secret</label>
-							<br>
-							<input id="check2" type="checkbox" name="check" value="check2">
-							<label for="check2">Dolce &amp; Gabbana</label>
-							<br>
-							<input id="check3" type="checkbox" name="check" value="check3">
-							<label for="check3">Tiffany &amp; Co</label>
-							<br>
-							<input id="check4" type="checkbox" name="check" value="check4">
-							<label for="check4">Gucci</label>
-							<br>
-							<input id="check5" type="checkbox" name="check" value="check5">
-							<label for="check5">Armani</label>
-							<br>
-							<input id="check6" type="checkbox" name="check" value="check6">
-							<label for="check6">Chanel</label>
-							<br>
-							<input id="check7" type="checkbox" name="check" value="check7">
-							<label for="check7">Louis Vuitton</label>
-						</div>
-					</div>
-					
-					
-					<!-- Popular Products
-					===================================== -->
-					<div class="pr25 pl25 clearfix">
-						<h5 class="mt25">
-							Popular Products
-							<span class="heading-divider mt10"></span>
-						</h5>
-						<div class="shop-sidebar-cart">
-							<div class="sidebar-cart-container">
-								<img src="assets/img/shop/img-shop-thumb-1.png" alt="" class="img-responsive pull-left">
-								<h6>Man Casual Jacket</h6>
-								<span class="sidebar-cart-price text-gray">$90.00</span>
-								<span class="sidebar-cart-remove">
-									<a href="#">
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star-half-o text-orange"></i>
-									</a>
-								</span>
-							</div>
-							
-							<div class="sidebar-cart-container">
-								<img src="assets/img/shop/img-shop-thumb-2.png" alt="" class="img-responsive pull-left">
-								<h6>Man Casual Jacket</h6>
-								<span class="sidebar-cart-price text-gray">$90.00</span>
-								<span class="sidebar-cart-remove">
-									<a href="#">
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star-half-o text-orange"></i>
-									</a>
-								</span>
-							</div>
-							
-							<div class="sidebar-cart-container">
-								<img src="assets/img/shop/img-shop-thumb-3.png" alt="" class="img-responsive pull-left">
-								<h6>Man Casual Jacket</h6>
-								<span class="sidebar-cart-price text-gray">$90.00</span>
-								<span class="sidebar-cart-remove">
-									<a href="#">
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star text-orange"></i>
-										<i class="fa fa-star-half-o text-orange"></i>
-									</a>
-								</span>
-							</div>
-							
-						</div>
-					</div>                            
-					
-				</div><!-- sidebar end -->
-						 
+						</ul> -->
+					</div>                      
+				</div><!-- sidebar end --> 
 			</div><!-- row end -->
 		</div><!-- container end -->
 	</div><!-- shop section end -->
@@ -363,49 +195,7 @@
 	
 	<!-- Shopping Method
 	===================================== -->
-	<div id="shop-info" class="bg-grad-stellar">
-		<div class="container">                
-			<div class="row pt50 pb30">
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-bike color-light"></span>
-						<h5 class="color-light">Free Shpping</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-linegraph color-light"></span>
-						<h5 class="color-light">Online Tracking</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-speedometer color-light"></span>
-						<h5 class="color-light">Fast Delivery</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-refresh color-light"></span>
-						<h5 class="color-light">Moneyback Guaranteed</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</div>
+
 	<!-- Footer -->
 	{% include 'common/zfooter.html' %}
 </body>
