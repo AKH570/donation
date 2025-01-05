@@ -36,17 +36,17 @@
 			<div class="row">
 				<div class="container">
 					<div class="row">
-						{% include 'common/alert.html' %}
+						{% include 'common/alerts.html' %}
 						<h4 class="text-center mb20">Add Zakat Recipients</h4>
 						<form method="POST" action="#">
 							{% csrf_token %}
-							<div class="col-md6 col-sm-6 col-xs-12">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="form-group has-success">
 								  <label class="control-label" for="inputSuccess1">Recipient's Name</label>
 								  {{zakat_form.recipients_name}}
 								</div>
 							</div>
-							<div class="col-md6 col-sm-6 col-xs-12">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
 								<div class="form-group has-success">
 								  <label class="control-label" for="inputSuccess1">Recipient's Address</label>
@@ -54,7 +54,7 @@
 								</div>
 								
 							</div>
-							<div class="col-md6 col-sm-6 col-xs-12">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
 								<div class="form-group has-success">
 								  <label class="control-label" for="inputSuccess1">Recipient's Mobile</label>
@@ -62,7 +62,7 @@
 								</div>
 								
 							</div>
-							<div class="col-md6 col-sm-6 col-xs-12">
+							<div class="col-md-6 col-sm-6 col-xs-12">
 								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
 								<div class="form-group has-success">
 								  <label class="control-label" for="inputSuccess1">References</label>
@@ -70,7 +70,7 @@
 								</div>
 								
 							</div>
-							<div class="col-md6 col-sm-3 col-xs-12">
+							<div class="col-md-6 col-sm-3 col-xs-12">
 								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
 								<div class="form-group has-success">
 								  <label class="control-label" for="inputSuccess1">Zakat Amount</label>
@@ -78,7 +78,7 @@
 								</div>
 								
 							</div>
-							<div class="col-md6 col-sm-3 col-xs-12">
+							<div class="col-md-6 col-sm-3 col-xs-12">
 								<!-- <h4 class="text-center mb20">Recipients informations</h4> -->
 								<div class="form-group has-success">
 								  <label class="control-label" for="inputSuccess1">Recipients Category</label>
@@ -86,16 +86,26 @@
 								</div>
 								
 							</div>
-							<div class="col-md6 col-sm-3 col-xs-12">
+							<div class="col-md-4 col-sm-3 col-xs-12">
 								<div class="form-group has-success">
-								  <label class="control-label" for="inputSuccess1">Zakat Date</label>
-								  {{zakat_form.zakat_date}}
+								  <label class="control-label" for="inputSuccess1">Donation Date</label>
+								  {{zakat_form.zakat_year}}
 								</div>
 							</div>
-							<div class="col-md6 col-sm-3 col-xs-9">
+							<div class="col-md-4 col-sm-3 col-xs-12">
 								<div class="form-group has-success">
-								<!-- <label class="control-label" for="inputSuccess1">Add</label> -->
+								  <label class="control-label" for="inputSuccess1">Donation Date</label>
+								  {{zakat_form.donation_date}}
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-3 col-xs-9">
+								<br>
+								<div class="form-group has-success">
+								{% if user.is_authenticated %}
 									<input type="submit" class="button button-md button-block button-grad-stellar"  value="Add">
+									{% else %}
+									<small class="text" style="color: brown;">Only admin user can add donation</small>
+									{% endif %}
 								</div>
 							</div>
 						</form>

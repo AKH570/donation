@@ -5,7 +5,7 @@ import datetime
 # Create your models here.
 
 class Donors(models.Model):
-	name = models.CharField(max_length=50,blank=True,null=True)
+	name = models.CharField(max_length=200,blank=True,null=True)
 	mobile_no = models.CharField(max_length=20,blank=True,null=True)
 
 	def __str__(self):
@@ -49,11 +49,11 @@ class ZakatRecipients(models.Model): # NAME LIST
 	recipients_address = models.CharField(max_length=200,blank=True,null=True)
 	zakat_money = models.DecimalField(max_digits=8,decimal_places=2,default=0)
 	recipients_mobile = models.CharField(max_length=20,blank=True,null=True)
-	donor_name = models.ManyToManyField(Donors,related_name='zakat_donor',blank=True)
+	donor_name = models.ForeignKey(Donors,on_delete=models.CASCADE,blank=True,null=True)
 	remarks = models.CharField(max_length=100,blank=True,null=True)
 	recipients_category =models.CharField(max_length=50,choices=RECIPIENTS_CAT,default='general')
 	zakat_year = models.IntegerField(_('year'),choices=YEAR_CHOICES,default=datetime.datetime.now().year)
-	zakat_date =models.DateTimeField(null=True,blank=True)
+	donation_date =models.DateField(null=True,blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	is_archived = models.BooleanField(default=False)
@@ -64,6 +64,24 @@ class ZakatRecipients(models.Model): # NAME LIST
 	class Meta:
 		verbose_name_plural='ZAKAT RECIPIENTS'
 
-	def donor_list(self):
-		return ', '.join([donor.name for donor in self.donor_name.all()])
-		donor_list.short_description = 'Donors'
+	# def donor_list(self):
+	# 	return ', '.join([donor.name for donor in self.donor_name.all()])
+	# 	donor_list.short_description = 'Donors'
+
+# ============ **** Archive Table ****==========
+
+class RecipientsArchive(models.Model):
+	recipients_name = models.CharField(max_length=150,blank=True,null=False)
+	recipients_address = models.CharField(max_length=200,blank=True,null=True)
+	zakat_money = models.DecimalField(max_digits=8,decimal_places=2,default=0)
+	recipients_mobile = models.CharField(max_length=20,blank=True,null=True)
+	remarks = models.CharField(max_length=100,blank=True,null=True)
+	recipients_category =models.CharField(max_length=50)
+	zakat_year = models.IntegerField()
+	donation_date =models.DateField(null=True,blank=True) 
+	archive_date = models.DateTimeField(auto_now_add=True) #his attribute sets the field to the current date only when the object is created.
+	updated_at = models.DateTimeField(auto_now=True) # for update
+	
+
+	def __str__(self):
+		return self.recipients_name

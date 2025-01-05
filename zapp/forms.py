@@ -15,7 +15,7 @@ class DonateInfoForm(forms.ModelForm):
 	donate_amt = forms.CharField(widget=forms.TextInput(attrs={'class':'input-md input-rounded form-control','maxlength':'100','placeholder':'TK'}))
 	message	= forms.CharField(widget=forms.TextInput(attrs={'class':'input-md input-rounded form-control','maxlength':'100','placeholder':'Remarks'}))
 	donation_type = forms.ChoiceField(choices=DonationType.choices,label='',widget=forms.Select(attrs={'class':'input-md input-rounded form-control','maxlength':'50','placeholder':'Select Donation Type'}),initial=DonationType.select_type)#placeholder options
-	record_date	= forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type':'datetime-local','class':'input-md input-rounded form-control','maxlength':'100'}))
+	record_date	= forms.DateField(widget=forms.DateInput(attrs={'type':'date','class':'input-md input-rounded form-control'}))
 
 	class Meta:
 		model=DonateInfo
@@ -40,11 +40,16 @@ class ZakatRecipientsForm(forms.ModelForm):
 		'class':'input-md input-rounded form-control',
 		'maxlength':'100',
 		'placeholder':'Reference'}),required=False,max_length=100)
-	recipients_category	= forms.ChoiceField(choices=ZakatRecipients._meta.get_field('recipients_category').choices,label='Category',widget=forms.Select(attrs={'class':'input-md input-rounded form-control'})) # The _meta API allows you to access various attributes of your model fields programmatically, including their choices.
-	zakat_date	= forms.DateTimeField(widget=forms.DateTimeInput(attrs={
-		'type':'datetime-local',
-		'class':'input-md input-rounded form-control',
-		'maxlength':'100'}))
+	recipients_category	= forms.ChoiceField(choices=ZakatRecipients._meta.get_field(
+		'recipients_category').choices,label='Category',widget=forms.Select(attrs=
+		{'class':'input-md input-rounded form-control'})) # The _meta API allows you to access various attributes of your model fields programmatically, including their choices.
+	donation_date	= forms.DateField(widget=forms.DateInput(attrs={
+		'type':'date',
+		'class':'input-md input-rounded form-control'
+		}))
+	zakat_year	= forms.ChoiceField(choices=ZakatRecipients._meta.get_field('zakat_year').choices,widget=forms.Select(attrs={
+		'class':'input-md input-rounded form-control'
+		}))
 
 	class Meta:
 		model=ZakatRecipients
@@ -54,7 +59,8 @@ class ZakatRecipientsForm(forms.ModelForm):
 		'recipients_mobile',
 		'recipients_category',
 		'remarks',
-		'zakat_date']
+		'donation_date',
+		'zakat_year']
 
 # class LoginForm(AuthenticationForm):
 #     username = forms.CharField(

@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
 # Inherit from PermissionsMixin in addition to 
 # AbstractBaseUser. This provides fields and methods for
 #  handling permissions and groups.
-class UserAccount(AbstractBaseUser,PermissionsMixin):
+class UserAccount(AbstractBaseUser):
 	email = models.EmailField(max_length=100,unique=True)
 	user_name = models.CharField(max_length=100,blank=True,null=True)
 	is_active = models.BooleanField(default=True)

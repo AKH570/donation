@@ -22,10 +22,10 @@
 		<div class="container">
 			<div class="row mt20 mb30">
 				<div class="col-md-6 text-left">
-					<h3 class="color-light text-uppercase">Online Shop<small class="color-light alpha7">Best products</small></h3>
+					<!-- <h3 class="color-light text-uppercase">Online Shop<small class="color-light alpha7">Best products</small></h3> -->
 				</div>
 				<div class="col-md-6 text-right pt25">
-					<a class="button button-md button-green hover-ripple-out pull-right">Free Shipping</a>
+					<!-- <a class="button button-md button-green hover-ripple-out pull-right">Free Shipping</a> -->
 				</div>
 			</div>
 		</div>
@@ -81,8 +81,13 @@
 								   </div>
 									<!-- website end -->
 									<!-- button start -->
-									<div class="form-group col-md-12 col-sm-12 col-xs-12">
-										<input type="submit" class="button button-md button-block button-grad-stellar" value="Donate">
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">{% if user.is_authenticated %}
+										<input  type="submit" class="button button-md button-block button-grad-stellar" value="Donate" >
+										{% else %}
+									
+											<small class="text-lowercase" style="color: brown;">Only admin user can add donation</small>
+									
+										{% endif %}
 									</div>
 								</form>
 							</div><!-- div contact end -->

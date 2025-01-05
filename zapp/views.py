@@ -4,7 +4,7 @@ from zapp.forms import DonateInfoForm,DonorsNameForm,ZakatRecipientsForm
 from django.contrib import messages,auth
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test,login_required
 from django.contrib.auth import login,authenticate
 
 
@@ -75,7 +75,7 @@ def Donation(request,pk):
 
 	return render(request,'zakat/donatemoney.html',context)
 
-# @admin_required
+# @login_required
 def UpdateDonation(request,pk):
 	get_donation = get_object_or_404(DonateInfo,pk=pk)
 	try:
@@ -83,20 +83,22 @@ def UpdateDonation(request,pk):
 	except Donors.DoesNotExist:
 		messages.error(request,'Donor is not exist')
 		return redirect('donors')
-
-	if request.method == 'POST':
-		donation_form = DonateInfoForm(request.POST,instance=get_donation)
-		if donation_form.is_valid():
-			donation_form.save()
-			messages.success(request,'Donation have been updated successfully')
-			return redirect('donors')
+	if request.user.is_authenticated:
+		if request.method == 'POST':
+			donation_form = DonateInfoForm(request.POST,instance=get_donation)
+			if donation_form.is_valid():
+				donation_form.save()
+				messages.success(request,'Donation have been updated successfully')
+				return redirect('donors')
+			else:
+				print(donation_form.errors)
+				
 		else:
-			print(donation_form.errors)
-			
+			donation_form = DonateInfoForm(instance=get_donation)
+			donor_form = DonorsNameForm(instance=get_donor)
 	else:
-		donation_form = DonateInfoForm(instance=get_donation)
-		donor_form = DonorsNameForm(instance=get_donor)
-
+		messages.warning(request,'Only admin user can perform this action')
+		return redirect('donors')
 	context={
 		'dinfo_form':donation_form,
 		'donor_name':donor_form
@@ -116,7 +118,8 @@ def AddZakatRecipients(request):
 			zRecipients.zakat_money = zakat_form.cleaned_data['zakat_money']
 			zRecipients.recipients_category = request.POST.get('recipients_category')
 			zRecipients.remarks = zakat_form.cleaned_data['remarks']
-			zRecipients.zakat_date = zakat_form.cleaned_data['zakat_date']
+			zRecipients.zakat_year = zakat_form.cleaned_data['zakat_year']
+			zRecipients.donation_date = zakat_form.cleaned_data['donation_date']
 
 			zRecipients.save()
 			messages.success(request,'Recipients name added successfully')
@@ -162,33 +165,40 @@ def ZakatRecipientsName(request,recipients_num = None):
 	}
 	return render(request,'zakat/zakat_recipients.html',context)
 
+# @login_required
 def EditZakatRecipients(request,pk):
 	get_zakat_recipient_name = get_object_or_404(ZakatRecipients,pk=pk)
-	
-	if request.method=='POST':
-		zakat_form = ZakatRecipientsForm(request.POST,instance=get_zakat_recipient_name)
-		if zakat_form.is_valid():
-			zakat_form.save()
-			messages.success(request,'Recipients updated successfully')
-			return redirect('zakat_recipients')
+	if request.user.is_authenticated:
+		if request.method=='POST':
+			zakat_form = ZakatRecipientsForm(request.POST,instance=get_zakat_recipient_name)
+			if zakat_form.is_valid():
+				zakat_form.save()
+				messages.success(request,'Recipients updated successfully')
+				return redirect('zakat_recipients')
+			else:
+				print(zakat_form.errors)
 		else:
-			print(zakat_form.errors)
+			zakat_form = ZakatRecipientsForm(instance=get_zakat_recipient_name)
 	else:
-		zakat_form = ZakatRecipientsForm(instance=get_zakat_recipient_name)
+		messages.warning(request,'Only Admin User Can Update')
+		return redirect('zakat_recipients')
 	context={
 		'zakat_form':zakat_form
 	}	
 	return render(request,'zakat/update_zakat_recipt.html',context)
 
-@user_passes_test(lambda u: u.is_superuser)
+# @user_passes_test(lambda u: u.is_superuser)
 def RemoveZakatRecipients(request,pk):
-	try:
-		delete_zrecipient = ZakatRecipients.objects.get(pk=pk)
-		delete_zrecipient.delete()
+	if request.user.is_authenticated:
+		try:
+			delete_zrecipient = ZakatRecipients.objects.get(pk=pk)
+			delete_zrecipient.delete()
+			return redirect('zakat_recipients')
+		except:
+			pass
+	else:
+		messages.warning(request,'Only admin user can perform this action')
 		return redirect('zakat_recipients')
-	except:
-		pass
-
 
 def Zyear23(request):
 	return render(request,'zakat/zakatyear2023.html')
