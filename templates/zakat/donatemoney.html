@@ -21,15 +21,11 @@
 
 		<div class="container">
 			<div class="row mt20 mb30">
-				<div class="col-md-6 text-left">
-					<!-- <h3 class="color-light text-uppercase">Online Shop<small class="color-light alpha7">Best products</small></h3> -->
-				</div>
-				<div class="col-md-6 text-right pt25">
-					<!-- <a class="button button-md button-green hover-ripple-out pull-right">Free Shipping</a> -->
+				<div class="col-md-12 text-right pt25">
+					<a href="{% url 'donors' %}" class="button button-md button-green hover-ripple-out pull-right">Back</a>
 				</div>
 			</div>
 		</div>
-
 	</header>
 	
 	
@@ -81,13 +77,13 @@
 								   </div>
 									<!-- website end -->
 									<!-- button start -->
-									<div class="form-group col-md-12 col-sm-12 col-xs-12">{% if user.is_authenticated %}
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
 										<input  type="submit" class="button button-md button-block button-grad-stellar" value="Donate" >
-										{% else %}
+										
 									
-											<small class="text-lowercase" style="color: brown;">Only admin user can add donation</small>
+											<!-- <small class="text-lowercase" style="color: brown;">Only admin user can add donation</small> -->
 									
-										{% endif %}
+									
 									</div>
 								</form>
 							</div><!-- div contact end -->
@@ -99,51 +95,7 @@
 	</div><!-- shop section end -->
 			
 	
-	<!-- Shopping Method
-	===================================== -->
-	<div id="shop-info" class="bg-grad-stellar">
-		<div class="container">                
-			<div class="row pt50 pb30">
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-bike color-light"></span>
-						<h5 class="color-light">Free Shpping</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-linegraph color-light"></span>
-						<h5 class="color-light">Online Tracking</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-speedometer color-light"></span>
-						<h5 class="color-light">Fast Delivery</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6 col-xs-12">
-					<div class="content-box content-box-center">                        
-						<span class="icon-refresh color-light"></span>
-						<h5 class="color-light">Moneyback Guaranteed</h5>               
-						<p class="color-light alpha7">Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor.</p>
-				  
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</div>
+
 	<!-- Footer -->
 	{% include 'common/zfooter.html' %}
 </body>

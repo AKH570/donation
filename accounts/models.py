@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractUser,AbstractBaseUser,PermissionsMixin
 
 # In summary, choose AbstractUser for projects that need standard user 
 # functionality with minor modifications, while AbstractBaseUser is better suited for 
@@ -10,20 +11,21 @@ class CustomUserManager(BaseUserManager):
 		if not email:
 			raise ValueError("Users must have an email address")
 		user = self.model(
+			user_name=user_name,
 			email=self.normalize_email(email),
-			user_name=user_name,)
+			)
 		user.set_password(password)
 		user.save(using=self._db)
 		return user	
 	def create_superuser(self, user_name,email,password=None):
 		user = self.create_user(
-		email=self.normalize_email(email),
 		user_name=user_name,
+		email=self.normalize_email(email),
 		password=password,
 		)
 		user.is_admin = True
 		user.is_active= True
-		user.is_superadmin=True
+		user.is_superuser=True
 		user.is_staff= True
 		user.save(using=self._db)
 		return user
@@ -31,10 +33,10 @@ class CustomUserManager(BaseUserManager):
 # Inherit from PermissionsMixin in addition to 
 # AbstractBaseUser. This provides fields and methods for
 #  handling permissions and groups.
-class UserAccount(AbstractBaseUser):
+class UserAccount(AbstractBaseUser,PermissionsMixin):
 	email = models.EmailField(max_length=100,unique=True)
-	user_name = models.CharField(max_length=100,blank=True,null=True)
-	is_active = models.BooleanField(default=True)
+	user_name = models.CharField(max_length=200)
+	is_active = models.BooleanField(default=False)
 	is_admin = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
 	is_staff = models.BooleanField(default=False)
@@ -50,3 +52,7 @@ class UserAccount(AbstractBaseUser):
 		return self.is_admin
 	def has_module_perms(self, app_label):
 		return True
+	class Meta:
+		verbose_name = 'User Account'
+		verbose_name_plural = 'User Accounts'
+		ordering = ['date_created']

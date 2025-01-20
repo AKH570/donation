@@ -8,7 +8,7 @@ class UserForm(forms.ModelForm):
 	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-md input-rounded form-control','maxlength':'100','placeholder':'Confirm Password'}))
 	class Meta:
 		model = UserAccount
-		fields = ['email','user_name','password']
+		fields = ['email','user_name','password','confirm_password']
 
 		def clean(self):
 			cleaned_data=super(UserForm,self).clean()
@@ -17,5 +17,6 @@ class UserForm(forms.ModelForm):
 
 			if password != confirm_password:
 				raise forms.ValidationError(
-					'Password dose not matched'
+					'Password do not match'
 				)
+			return cleaned_data # Ensure to return cleaned data

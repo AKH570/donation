@@ -3,7 +3,7 @@ from .models import UserAccount
 
 
 class UserAccountAdmin(admin.ModelAdmin):
-	list_display = ['email','user_name','is_active','is_admin','is_superuser','date_created']
-	list_filter=()
+	list_display = ['user_name','email','is_active','is_admin','is_superuser','is_staff','date_created']
+	list_filter=['is_active']
 admin.site.register(UserAccount,UserAccountAdmin)
 

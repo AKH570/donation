@@ -11,5 +11,6 @@ urlpatterns=[
 	# path('select_zrecipients/<slug:recipients_cat>/',views.FilterRecipients,name='select_zrecipients'),
 	path('zrecipients_update/<int:pk>/',views.EditZakatRecipients,name='zrecipients_update'),
 	path('remove_zrecipient/<int:pk>/',views.RemoveZakatRecipients,name='remove_zrecipient'),
-	path('year23/',views.Zyear23,name='zyear23')
+	path('year_23/',views.recipients_23,name='year_23'),
+	path('year_24/',views.recipients_24,name='year_24'),
 ]

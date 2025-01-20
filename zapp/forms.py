@@ -1,6 +1,6 @@
 from django import forms
 from zapp.models import DonateInfo,Donors,DonationType,ZakatRecipients
-from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth.forms import AuthenticationForm
 
 
 
@@ -45,7 +45,7 @@ class ZakatRecipientsForm(forms.ModelForm):
 		{'class':'input-md input-rounded form-control'})) # The _meta API allows you to access various attributes of your model fields programmatically, including their choices.
 	donation_date	= forms.DateField(widget=forms.DateInput(attrs={
 		'type':'date',
-		'class':'input-md input-rounded form-control'
+		'class':'input-md input-rounded form-control',
 		}))
 	zakat_year	= forms.ChoiceField(choices=ZakatRecipients._meta.get_field('zakat_year').choices,widget=forms.Select(attrs={
 		'class':'input-md input-rounded form-control'
@@ -61,7 +61,7 @@ class ZakatRecipientsForm(forms.ModelForm):
 		'remarks',
 		'donation_date',
 		'zakat_year']
-
+		use_required_attribute = False
 # class LoginForm(AuthenticationForm):
 #     username = forms.CharField(
 #         widget=forms.TextInput(attrs={

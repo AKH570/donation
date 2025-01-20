@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 import datetime
+from simple_history.models import HistoricalRecords
 
 # Create your models here.
 
@@ -57,6 +58,7 @@ class ZakatRecipients(models.Model): # NAME LIST
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	is_archived = models.BooleanField(default=False)
+	histrory = HistoricalRecords()
 
 	def __str__(self):
 		return self.recipients_name

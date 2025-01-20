@@ -1,11 +1,13 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from zapp.models import Donors,DonateInfo,ZakatRecipients
+from zapp.models import Donors,DonateInfo,ZakatRecipients,RecipientsArchive
 from zapp.forms import DonateInfoForm,DonorsNameForm,ZakatRecipientsForm
-from django.contrib import messages,auth
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.decorators import user_passes_test,login_required
+from django.contrib import messages,auth
 from django.contrib.auth import login,authenticate
+from django.contrib.auth.decorators import user_passes_test,login_required
+from accounts.models import UserAccount
+
 
 
 	
@@ -46,28 +48,31 @@ def Donor(request):
 		'recipients_num':recipients_num
 	}
 	return render(request,'zakat/zdonors.html',context) # old:zcontributors.html
-
+# @login_required
 def Donation(request,pk):
 	name = get_object_or_404(Donors,id=pk)
-	print(f'name:{name}')
-	if request.method=='POST':
-		donate_inf_form = DonateInfoForm(request.POST)
-		if donate_inf_form.is_valid():
-			donate_info = DonateInfo()
-			donate_info.d_name=name
-			donate_info.donate_amt=donate_inf_form.cleaned_data['donate_amt']
-			donate_info.record_date=donate_inf_form.cleaned_data['record_date']
-			donate_info.message=donate_inf_form.cleaned_data['message']
-			donate_info.donation_type=request.POST.get('donation_type')
-			donate_info.save()
-			messages.success(request,'Alhamdulillah! Your fund has been added.')
-			return redirect('donors')
+	# print(f'name:{name}')
+	if request.user.is_authenticated:
+		if request.method=='POST':
+			donate_inf_form = DonateInfoForm(request.POST)
+			if donate_inf_form.is_valid():
+				donate_info = DonateInfo()
+				donate_info.d_name=name
+				donate_info.donate_amt=donate_inf_form.cleaned_data['donate_amt']
+				donate_info.record_date=donate_inf_form.cleaned_data['record_date']
+				donate_info.message=donate_inf_form.cleaned_data['message']
+				donate_info.donation_type=request.POST.get('donation_type')
+				donate_info.save()
+				messages.success(request,'Alhamdulillah! Your fund has been added.')
+				return redirect('donors')
+			else:
+				print(donate_inf_form.errors)
 		else:
-			print(donate_inf_form.errors)
+			d_info_form = DonateInfoForm()
+			donor_name_form = DonorsNameForm(instance=name)
 	else:
-		d_info_form = DonateInfoForm()
-		donor_name_form = DonorsNameForm(instance=name)
-
+		messages.warning(request,'Only admin user can perform this action')
+		return redirect('donors')
 	context={
 		'dinfo_form':d_info_form,
 		'donor_name':donor_name_form
@@ -94,8 +99,9 @@ def UpdateDonation(request,pk):
 				print(donation_form.errors)
 				
 		else:
-			donation_form = DonateInfoForm(instance=get_donation)
 			donor_form = DonorsNameForm(instance=get_donor)
+			donation_form = DonateInfoForm(instance=get_donation)
+
 	else:
 		messages.warning(request,'Only admin user can perform this action')
 		return redirect('donors')
@@ -114,10 +120,11 @@ def AddZakatRecipients(request):
 			zRecipients = ZakatRecipients()
 			zRecipients.recipients_name = zakat_form.cleaned_data['recipients_name']
 			zRecipients.recipients_address = zakat_form.cleaned_data['recipients_address']
-			zRecipients.recipients_mobile = zakat_form.cleaned_data['recipients_mobile']
 			zRecipients.zakat_money = zakat_form.cleaned_data['zakat_money']
-			zRecipients.recipients_category = request.POST.get('recipients_category')
+			zRecipients.recipients_mobile = zakat_form.cleaned_data['recipients_mobile']
 			zRecipients.remarks = zakat_form.cleaned_data['remarks']
+			zRecipients.recipients_category = request.POST.get('recipients_category')
+			
 			zRecipients.zakat_year = zakat_form.cleaned_data['zakat_year']
 			zRecipients.donation_date = zakat_form.cleaned_data['donation_date']
 
@@ -172,7 +179,9 @@ def EditZakatRecipients(request,pk):
 		if request.method=='POST':
 			zakat_form = ZakatRecipientsForm(request.POST,instance=get_zakat_recipient_name)
 			if zakat_form.is_valid():
-				zakat_form.save()
+				zakat_recipient_instance = zakat_form.save(commit=False) # Save but don't commit yet
+				zakat_recipient_instance._change_reason = f"Updated by {request.user}"  # Set change reason
+				zakat_recipient_instance.save()
 				messages.success(request,'Recipients updated successfully')
 				return redirect('zakat_recipients')
 			else:
@@ -200,5 +209,29 @@ def RemoveZakatRecipients(request,pk):
 		messages.warning(request,'Only admin user can perform this action')
 		return redirect('zakat_recipients')
 
-def Zyear23(request):
-	return render(request,'zakat/zakatyear2023.html')
+#**** Retrive archive data *******
+def recipients_23(request):
+	
+	try:
+		recipients_list = RecipientsArchive.objects.filter(zakat_year='2023').order_by('donation_date')
+		# print(f'list: {recipients_list}')
+	except RecipientsArchive.DoesNotExist:
+		# text_message = 'Recipients do not exist in the year 2023.'
+		pass
+	context={
+		'recipients_list':recipients_list,
+		# 'text_message':'Recipients do not exist in the year 2023.',
+	}
+	return render(request,'zakat/recipients_year2023.html',context)
+
+def recipients_24(request):
+	try:
+		recipients_list = RecipientsArchive.objects.filter(zakat_year='2024').order_by('donation_date')
+		# print(f'list: {recipients_list}')
+	except RecipientsArchive.DoesNotExist:
+		message.error(request,'Recipients do not exist in the year 2024.')
+	
+	context={
+		'recipients_list':recipients_list,
+	}
+	return render(request,'zakat/recipients_year2024.html',context)

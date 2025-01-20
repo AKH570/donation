@@ -1,0 +1,109 @@
+{% include 'common/zbase.html' %}
+{% load static %}  
+<!-- shop-list-view-left-sb -->
+<body  id="topPage" data-spy="scroll" data-target=".navbar" data-offset="100">
+	<a href="#page-top" class="go-to-top">
+		<i class="fa fa-long-arrow-up"></i>
+	</a>
+	
+	<!-- Navigation Area
+	===================================== -->
+
+	{% include 'common/znavbar.html' %}
+	<!-- Subheader Area
+	===================================== -->
+	<header class="bg-grad-day-tripper mt70">
+		<div class="container">
+			<div class="row mt20 mb30">
+				<div class="col-md-6 text-left">
+					<h3 class="color-light text-uppercase">Recipients List<small class="color-light alpha7">zakat year: 2023</small></h3>
+				</div>
+				<div class="col-md-6 text-right pt25">
+					<a href="#" class="button button-md button-green hover-ripple-out pull-right">Add Recipient</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Shop Area
+	===================================== -->
+	<div id="shop" class="bg-light pt25">
+		<div class="container">
+			<div class="row">                    
+				<!-- <div class="col-lg-9 col-md-push-3"> -->
+					<div class="row mt25 mb25 animated" data-animation="fadeInDown" data-animation-delay="100">                                    
+					</div>                      
+					<!-- Item 1
+					======================== -->
+					<div class="row bt-solid-1 bb-dashed-1 pb25">		
+						<div class="col-lg-12 col-sm-4 col-xs-12">
+							<div class="row">
+								<div class="col-lg-12">
+									{% if recipients_list %}
+									<table class="table table-colored">
+										<thead>
+											<tr>
+											<th class="bg-primary text-center">Sl</th>	
+											<th class="bg-primary text-center" style="width: 15%;">Name</th>
+											<th class="bg-success text-center" style="width: 20%;">Address</th>
+											<th class="bg-info text-center">Mobile No</th>
+											<th class="bg-warning text-center">Zakat Amount</th>
+											<th class="bg-danger text-center">Reference</th>
+											<th class="bg-warning text-center">Category</th>
+											<!-- <th class="bg-info text-center">Year</th> -->
+											<th class="bg-warning text-center" style="width: 20%;">Receive Date</th>
+											<th class="bg-danger text-center"></th>
+											</tr>
+										</thead>
+										<tbody>
+											
+											{% for list in recipients_list %}
+											<tr>
+											<td>{{ forloop.counter }}</td>	
+											<td>{{list.recipients_name}}</td>
+											<td>{{list.recipients_address}}</td>
+											<td>{{list.recipients_mobile}}</td>
+											<td>{{list.zakat_money}}</td>
+											<td>{{list.remarks}}</td>
+											<td>{{list.recipients_category}}</td>
+											<td>{{list.donation_date}}</td>
+											<!-- <td><a href="#"><i class="fa fa-fw">&#xf00d</i></a></td> -->
+											<!-- <td><a href="#"><i class="fa fa-fw">&#xf044</i></a></td> -->
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+									{% else %}
+									<table class="table table-bordered color-dark2">
+										<thead>
+											<tr>
+											<th width="5%">Sl</th>	
+											<th width="15%">Name</th>
+											<th width="20%">Address</th>
+											<th width="10%">Mobile No</th>
+											<th width="10%">Zakat Amount</th>
+											<th width="7%">Reference</th>
+											<th width="5%">Category</th>
+											<!-- <th class="bg-info text-center">Year</th> -->
+											<th width="10%">Receive Date</th>
+											
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="8" class="text-center color-red"><strong>Recipients do not exist in the year 2023.</strong></td>
+											</tr>
+										</tbody>
+									</table>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				<!-- </div> -->
+			</div><!-- row end -->
+		</div><!-- container end -->
+	</div><!-- shop section end -->
+	<br><br>
+	<!-- Footer -->
+	{% include 'common/zfooter.html' %}
+</body>
